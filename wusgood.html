@@ -21,7 +21,7 @@
             margin-top: 50px;
         }
         .gif-container {
-            margin: 20px;
+            margin: 50px;
         }
         .question {
             font-size: 38px;
@@ -46,7 +46,7 @@
             font-size: 20px;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 25px;
             font-family: 'Montserrat', sans-serif;
         }
         .yes {
@@ -61,42 +61,48 @@
             margin-top: 68px;
         }
         .watermark {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        font-size: 14px;
-        font-family: 'Montserrat', sans-serif;
-        color: rgba(0, 0, 0, 0.3); /* Semi-transparent */
-        pointer-events: none; /* Prevent interaction */
-        user-select: none; /* Prevent text selection */
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            color: rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            user-select: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="gif-container">
-            <img id="main-gif" src="https://media1.tenor.com/m/dV184reh3QIAAAAd/sopyues-guy.gif" alt="Cute GIF" width="200">
+            <img id="main-gif" src="https://media.tenor.com/82glm6JLe0AAAAAi/blue-heart.gif" alt="Cute GIF" width="300">
         </div>
         <div class="question" id="question-text">
-            HAIIII HAPPY VALENTINE NIMAA<br> 
-            since today is february the 14th<br>
-            will u be the 1 4 me? ahayde
-
+            HAII HAPPY VALENTINE'S DAY NIMAA &lt;3<br> 
+            since yesterday is february the 14th<br>
+            will u be the 1 4 me?<br>
+            ahayde #anjhay<br>
         </div>
         <div class="buttons">
             <div class="yes-buttons">
-                <button class="btn yes" id="yes1" onclick="showYesGif()">dann yap mau kok anjhay</button>
+                <button class="btn yes" id="yes1" onclick="showYesGif()">dann yap mau kok</button>
                 <button class="btn yes" id="yes2" onclick="showYesGif()">MAU BANGET BOS</button>
             </div>
             <button class="btn no" id="no-btn" onclick="growYesAndMoveNo()">apansih ga. gaje.</button>
         </div>
         <div class="watermark">courtesy of that guy™</div>
-
     </div>
 
     <script>
         let noClickCount = 0;
-        const noTexts = ["dihhh?", "seriusan?", "salah klik deh kamu kayanya", "kok gitu sih....", "oh gt y.", "JAHAT", "dahlah", "UDAH WOI KAMPRET", "jgn ganggu sy lg y. sy lg nangis." ];
+        const noButtonTexts = [
+            "iya gamau", "iya serius", "ngga salah klik kocak", "bodo mwahaha",
+            "ya.", "KACAU SIH KALO MASIH DI KLIK", "STOP", "pls lah."
+        ];
+        const questionTexts = [
+            "dihhh?", "seriusan?", "salah klik deh kamu kayanya", "kok gitu sih....",
+            "oh gt y.", "JAHAT", "dahlah", "UDAH WOI KAMPRET", "jgn ganggu sy lg y. sy lg nangis."
+        ];
         const sadGifs = [
             "https://media.tenor.com/0t1tbXP8VJIAAAAi/no-emotiguy.gif",
             "https://media1.tenor.com/m/DxD2NAww_GQAAAAC/nonono.gif",
@@ -107,11 +113,9 @@
         ];
 
         function showYesGif() {
-            document.getElementById("main-gif").src = "https://media.tenor.com/o9Ts08TfRo4AAAAi/i-love-you-i-love-you-so-much.gif"; 
-            document.querySelector(".question").innerText = "anjazzzzz kelas king AHAHAHHAHAHA ❤️❤️❤️";
+            document.getElementById("main-gif").src = "https://media1.tenor.com/m/dV184reh3QIAAAAd/sopyues-guy.gif"; 
+            document.querySelector(".question").innerText = "cool, for u every day is february the 14th ❤️❤️❤️ #insanerizz kelas king";
             document.querySelector(".buttons").style.display = "none";
-    
-        
             noClickCount = 0;
         }
 
@@ -119,25 +123,26 @@
             let noBtn = document.getElementById("no-btn");
             let yes1 = document.getElementById("yes1");
             let yes2 = document.getElementById("yes2");
+
             let currentSizeYes = yes1.offsetWidth;
-            
             yes1.style.width = (currentSizeYes + 20) + "px";
             yes1.style.height = (currentSizeYes + 10) + "px";
             yes2.style.width = (currentSizeYes + 20) + "px";
             yes2.style.height = (currentSizeYes + 10) + "px";
-            
-            document.getElementById("question-text").innerText = noTexts[Math.min(noClickCount, noTexts.length - 1)];
+
+            noBtn.innerText = noButtonTexts[Math.min(noClickCount, noButtonTexts.length - 1)];
+            document.getElementById("question-text").innerText = questionTexts[Math.min(noClickCount, questionTexts.length - 1)];
             document.getElementById("main-gif").src = sadGifs[Math.min(noClickCount, sadGifs.length - 1)];
+
+            if (noClickCount === 0) {
+                yes1.innerText = "YAUDAH DEH IYA 😭";
+                yes2.innerText = "setelah sy fikir lg, aku MAUUU KOK";
+            }
+
             noClickCount++;
-            
-            let maxX = window.innerWidth - noBtn.offsetWidth - 100;
-            let maxY = window.innerHeight - noBtn.offsetHeight - 100;
-            let randomX = Math.max(25, Math.floor(Math.random() * maxX));
-            let randomY = Math.min(Math.max(100, Math.floor(Math.random() * maxY)), window.innerHeight * 0.6); // Prevents moving too far down
-            
-            noBtn.style.left = randomX + "px";
-            noBtn.style.top = randomY + "px";
-            
+
+            noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+            noBtn.style.top = Math.random() * (window.innerHeight - 100) + "px";
             document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 80%)`;
         }
     </script>
